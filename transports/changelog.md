@@ -1,5 +1,8 @@
 ## ✨ Features
 
+- **Failed-Request Billing** — Bill for tokens a provider already processed when a stream is cancelled or times out, so partial usage is still accounted (closes #3357)
+- **Airgapped Local Sync** — Model catalog pricing and model parameters can now sync from local files for airgapped deployments (closes #4305)
+- **MCP Extra Header Forwarding** — Allowlisted per-request extra headers are now forwarded to MCP tool calls, including `ping`/`list_tools`
 - **Business Unit & User Tracing** — Traces now capture business unit and user names/IDs for richer attribution
 - **Dashboard Export** — Added a dashboard export endpoint to download dashboard data
 - **Virtual Key Rankings** — New Virtual Key Rankings tab in the dashboard
@@ -9,7 +12,8 @@
 ## 🐞 Fixed
 
 - **Anthropic Streaming** — Fixed duplicate `message_start` event in the Anthropic stream (closes #4556)
-- **Bedrock Streaming** — Encode Bedrock stream errors as EventStream exceptions (#4545)
+- **Bedrock Streaming** — Encode Bedrock stream errors as EventStream exceptions, fixing ChecksumMismatch / corrupted EventStream on PostLLMHook errors (closes #4545) (thanks [@jstar0](https://github.com/jstar0)!)
+- **Bedrock MCP Tools** — Strip provider-unsupported server tools (e.g. `mcp`) on the Bedrock/Anthropic Responses path instead of failing the whole request, restoring pre-v1.5.0 behavior (closes #3795)
 - **Bedrock MiniMax** — Fixed Bedrock signature handling for MiniMax models
 - **Bedrock Nova** — Fixed Nova model handling on Bedrock
 - **Bedrock Batch** — Corrected model id in Bedrock batch requests
@@ -25,3 +29,12 @@
 
 - **Network Defaults** — Updated default network config timings
 - **Dependencies** — Dependabot dependency updates
+
+## 🐙 Closed GitHub Issues
+
+- [#2887](https://github.com/maximhq/bifrost/issues/2887) — Listing models for a virtual key not associated with all providers adds errors to logs
+- [#3357](https://github.com/maximhq/bifrost/issues/3357) — Bifrost Billing Discrepancy Analysis Report
+- [#3795](https://github.com/maximhq/bifrost/issues/3795) — MCP tools fail with Bedrock provider in v1.5.0
+- [#4305](https://github.com/maximhq/bifrost/issues/4305) — Model parameters can't be configured locally
+- [#4545](https://github.com/maximhq/bifrost/issues/4545) — Bedrock streaming ChecksumMismatch / corrupted AWS EventStream
+- [#4556](https://github.com/maximhq/bifrost/issues/4556) — Duplicate `message_start` SSE frame on Anthropic passthrough

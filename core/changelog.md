@@ -1,3 +1,6 @@
+- feat: bill partial usage for cancelled or timed-out streaming requests via BilledUsage on errors (closes #3357)
+- feat: forward allowlisted per-request extra headers to MCP tool calls, including ping/list_tools
+- fix: strip provider-unsupported server tools (e.g. mcp) on the bedrock/anthropic responses path instead of failing the request (closes #3795)
 - feat: add business unit & user names and ids to tracing
 - fix: double message start event in anthropic stream (closes #4556)
 - fix: bedrock signature fix for minimax
